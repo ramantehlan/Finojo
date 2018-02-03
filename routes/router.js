@@ -8,12 +8,12 @@ router.get('/', function(req, res, next) {
 
 /* GET Generate page. */
 router.get('/generate/:type', function(req, res, next){
-  res.render('generate', { type: req.params.type});
+  res.render('generate', { title: 'Generate', type: req.params.type , css :[]});
 });
 
 /* GET View page. */
 router.get('/view/:type', function(req, res, next){
-  res.render('view', { type: req.params.type});
+  res.render('view', { title: 'View', type: req.params.type , css: []});
 });
 
 module.exports = router;
