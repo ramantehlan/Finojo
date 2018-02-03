@@ -1,11 +1,13 @@
 'use strict'
 
 var express = require('express');
-const series = require('async/series');
+const async = require('async');
 const IPFS = require('ipfs');
 
 const node = new IPFS();
 var router = express.Router();
+let fileMultihash
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -47,36 +49,48 @@ router.get('/view/:type', function(req, res, next){
 router.post('/ipfs/store/:type', function(req, res, next){
   let type = req.params.type;
 
+
   if(type == "policy"){
-    let policyData = [ req.body.id0,
-                       req.body.id1,
-                       req.body.id2,
-                       req.body.id3,
-                       req.body.id4];
+    let policyData = req.body.id0 + "," +
+                       req.body.id1 + "," +
+                       req.body.id2 + "," +
+                       req.body.id3 + "," +
+                       req.body.id4;
 
-      // Calling ipfs to store
-      (cb) => node.files.add({
-          path: '',
-          content: policyData
-        }, (err, filesAdded) => {
-          if (err) { return cb(err) }
+                         async.series([
+                           (cb) => node.files.add({
+                             path: 'sample.json',
+                             content: Buffer.from(policyData)
+                           }, (err, filesAdded) => {
+                             if (err) { return cb(err) }
 
-          // Once the file is added, we get back an object containing the path, the
-          // multihash and the sie of the file
-          console.log('\nAdded file:', filesAdded[0].path, filesAdded[0].hash)
-          fileMultihash = filesAdded[0].hash
-          cb()
-        })
+                             console.log('\nAdded file:', filesAdded[0].path, filesAdded[0].hash)
+                             fileMultihash = filesAdded[0].hash
+                             cb()
+
+                             res.render('ipfsStore', {
+                               title: 'Storing in IPFS',
+                               data: policyData,
+                               hash: fileMultihash,
+                               css: []});
+
+                           }),
+                           (cb) => node.files.cat(fileMultihash, (err, data) => {
+                             if (err) { return cb(err) }
+
+                             console.log('\nFile content:')
+                             process.stdout.write(data)
+                           })
+                         ])
 
 
-      res.render('ipfsStore', {
-        title: 'Storing in IPFS',
-        data: policyData,
-        css: []});
+
+
+
 
 
   }else{
-      res.send('respond with a resource');
+      res.send('Area under construction');
   }
 
 

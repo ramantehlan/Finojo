@@ -22,6 +22,8 @@ a {
   text-decoration:none;
 }
 
+.center{text-align: center;}
+
 .box{
   border-radius:10px;
   min-width:100px;
