@@ -54,7 +54,7 @@ router.post('/ipfs/store/:type', function(req, res, next){
         uId: uId,
         pType: pType,
         amount: amount,
-        other:other, 
+        other:other,
         css: []});
   }else{
       res.send('respond with a resource');
