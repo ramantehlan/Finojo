@@ -1,4 +1,10 @@
+'use strict'
+
 var express = require('express');
+const series = require('async/series');
+const IPFS = require('ipfs');
+
+const node = new IPFS();
 var router = express.Router();
 
 /* GET home page. */
@@ -42,20 +48,33 @@ router.post('/ipfs/store/:type', function(req, res, next){
   let type = req.params.type;
 
   if(type == "policy"){
-    let cId = req.body.id0;
-    let uId = req.body.id1;
-    let pType = req.body.id2;
-    let amount = req.body.id3;
-    let other = req.body.id4;
+    let policyData = [ req.body.id0,
+                       req.body.id1,
+                       req.body.id2,
+                       req.body.id3,
+                       req.body.id4];
+
+      // Calling ipfs to store
+      (cb) => node.files.add({
+          path: '',
+          content: policyData
+        }, (err, filesAdded) => {
+          if (err) { return cb(err) }
+
+          // Once the file is added, we get back an object containing the path, the
+          // multihash and the sie of the file
+          console.log('\nAdded file:', filesAdded[0].path, filesAdded[0].hash)
+          fileMultihash = filesAdded[0].hash
+          cb()
+        })
+
 
       res.render('ipfsStore', {
         title: 'Storing in IPFS',
-        cId: cId,
-        uId: uId,
-        pType: pType,
-        amount: amount,
-        other:other,
+        data: policyData,
         css: []});
+
+
   }else{
       res.send('respond with a resource');
   }
