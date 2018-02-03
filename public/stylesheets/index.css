@@ -1,0 +1,32 @@
+
+
+.center{text-align:center;}
+
+.bold{
+  font-weight: bolder;
+  font-size:16px;
+  text-transform: capitalize;
+}
+
+.code{font-family: fantasy;
+      margin-top:5px;
+  }
+
+
+  ul,li{list-style:none;
+    margin:0px;
+    margin-left:5px;
+    margin-top:5px;
+    padding:0px;
+
+  }
+
+.option_holder{
+  width:880px;
+  height:170px;
+  margin:0px auto;
+  margin-top:100px;
+}
+
+.users_options{margin-left:80px;
+  }
