@@ -1,7 +1,13 @@
-body {
+html {
+  background-color:#2c365e;
+  color:#fff;
   padding: 0px;
+  padding-left:50px;
+  padding-right:50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+
+h1{}
 
 a {
   color: #00B7FF;

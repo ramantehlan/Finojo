@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Finojo - Decentralized safe recorder' });
+  res.render('index', { title: 'Finojo' , css: ['index.css']});
 });
 
 module.exports = router;
