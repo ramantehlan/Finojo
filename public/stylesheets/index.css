@@ -1,6 +1,4 @@
-
-
-.center{text-align:center;}
+.center{text-align: center;}
 
 .bold{
   font-weight: bolder;
@@ -28,5 +26,10 @@
   margin-top:100px;
 }
 
-.users_options{margin-left:80px;
+.corporate_option, .users_option{
+  float:left;
+  width:400px;
+}
+
+.users_option{margin-left:80px;
   }

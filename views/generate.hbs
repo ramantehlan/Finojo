@@ -1,1 +1,33 @@
-{{type}}
+{{# if generate}}
+<div class='box' style="width:1000px;margin:0px auto;">
+  <div class='box_top'>
+      {{type}} Generator
+  </div>
+  <div class='box_body'>
+
+
+
+    <form method="post" action="/ipfs/store/{{type}}">
+    {{#each items}}
+        <div class='box_item'>
+          <div class='box_item_title'>
+              {{this}}
+            </div>
+            <div class="box_item_body">
+                <input type="input" class='box_input' name="id{{@index}}">
+            </div>
+          </div>
+    {{/each}}
+
+      <input type="submit" value="Generate" class='box_button'>
+    </form>
+
+
+  </div>
+</div>
+
+{{else}}
+
+    Unknown type
+
+{{/if}}

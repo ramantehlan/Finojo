@@ -3,7 +3,7 @@ html {
   padding-left:30px;
   padding-right:30px;
   font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
-    background-color:#16db10;
+    background-color:#7161ef;
     color:#000;
 }
 
@@ -23,9 +23,8 @@ a {
 }
 
 .box{
-  float:left;
   border-radius:10px;
-  width:400px;
+  min-width:100px;
   background:white;
   color:black;
   box-shadow:0px 1px 5px rgba(0,0,0,0.15);
@@ -38,8 +37,33 @@ a {
      background:#211a1d;
      color:#ffffff;
      border-radius:10px 10px 0px 0px;
+     text-align:center;
+     text-transform:capitalize;
 }
 
 .box_body{
   padding:30px;
+}
+
+.box_item{
+  min-height:40px;
+  margin-top:5px;
+}
+
+.box_item_title{
+  width:150px;
+  min-height:40px;
+  line-height:40px;
+  float:left;
+  padding-right:10px;
+  padding-left:10px;
+  margin-right:10px;
+}
+
+.box_input{margin-top:5px;
+}
+
+.box_button{
+  margin-top:20px;
+  height:40px;
 }
