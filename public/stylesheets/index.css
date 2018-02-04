@@ -21,7 +21,7 @@
 
 .option_holder{
   width:880px;
-  height:170px;
+  height:180px;
   margin:0px auto;
   margin-top:100px;
 }
@@ -29,6 +29,7 @@
 .corporate_option, .users_option{
   float:left;
   width:400px;
+  min-height:190px;
 }
 
 .users_option{margin-left:80px;

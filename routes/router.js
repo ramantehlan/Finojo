@@ -15,7 +15,7 @@ let fileMultihash
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Finojo' , css: ['index.css']});
+  res.render('index', { title: 'FINOJO' , css: ['index.css']});
 });
 
 /* GET Generate page. */
@@ -45,7 +45,8 @@ router.get('/generate/:type', function(req, res, next){
 });
 
 /* GET View page. */
-router.get('/view/:uId', function(req, res, next){
+router.get('/view', function(req, res, next){
+  var userId = req.body.userId;
   var resultArray = [];
   mongo.connect(url, function(err, db){
     assert.equal(null, err);
