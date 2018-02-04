@@ -3,6 +3,10 @@
 var express = require('express');
 const async = require('async');
 const IPFS = require('ipfs');
+var mongo = require('mongodb');
+var assert = require('assert');
+
+var url = "mongodb://localhost:27017/test";
 
 const node = new IPFS();
 var router = express.Router();
@@ -57,6 +61,7 @@ router.post('/ipfs/store/:type', function(req, res, next){
                        req.body.id3 + "," +
                        req.body.id4;
 
+
                          async.series([
                            (cb) => node.files.add({
                              path: 'sample.json',
@@ -68,11 +73,14 @@ router.post('/ipfs/store/:type', function(req, res, next){
                              fileMultihash = filesAdded[0].hash
                              cb()
 
-                             res.render('ipfsStore', {
-                               title: 'Storing in IPFS',
-                               data: policyData,
-                               hash: fileMultihash,
-                               css: []});
+                             // Adding Ipfs multihash code to mongodb
+                            let dbObject = {
+                                  user_id:req.body.id0,
+                                  ipfsCode:fileMultihash
+                                }
+
+                              
+
 
                            }),
                            (cb) => node.files.cat(fileMultihash, (err, data) => {
