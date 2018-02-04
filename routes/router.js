@@ -3,7 +3,7 @@
 var express = require('express');
 const async = require('async');
 const IPFS = require('ipfs');
-var mongo = require('mongodb');
+var mongo = require('mongodb').MongoClient;
 var assert = require('assert');
 
 var url = "mongodb://localhost:27017/test";
@@ -79,7 +79,7 @@ router.post('/ipfs/store/:type', function(req, res, next){
                                   ipfsCode:fileMultihash
                                 }
 
-                              
+
 
 
                            }),
