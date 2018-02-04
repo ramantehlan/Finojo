@@ -45,8 +45,21 @@ router.get('/generate/:type', function(req, res, next){
 });
 
 /* GET View page. */
-router.get('/view/:type', function(req, res, next){
-  res.render('view', { title: 'View', type: req.params.type , css: []});
+router.get('/view/:uId', function(req, res, next){
+  var resultArray = [];
+  mongo.connect(url, function(err, db){
+    assert.equal(null, err);
+    const testDb = db.db('test');
+      var cursor = testDb.collection('user-data').find();
+      cursor.forEach(function(doc, err){
+        assert.equal(null,err);
+        resultArray.push(doc);
+      } , function(){
+
+        res.render('view', { title: 'View' , items: resultArray, css: []});
+      });
+  });
+
 });
 
 /* GET View page. */
@@ -61,6 +74,14 @@ router.post('/ipfs/store/:type', function(req, res, next){
                        req.body.id3 + "," +
                        req.body.id4;
 
+    /*let policyDataObject = {
+          corporateId:req.body.id0,
+          userId:req.body.id1,
+          policyType:req.body.id2,
+          amount:req.body.id3,
+          otherDetails:req.body
+    }*/
+
 
                          async.series([
                            (cb) => node.files.add({
@@ -71,16 +92,30 @@ router.post('/ipfs/store/:type', function(req, res, next){
 
                              console.log('\nAdded file:', filesAdded[0].path, filesAdded[0].hash)
                              fileMultihash = filesAdded[0].hash
-                             cb()
 
                              // Adding Ipfs multihash code to mongodb
                             let dbObject = {
                                   user_id:req.body.id0,
                                   ipfsCode:fileMultihash
-                                }
+                                };
 
+                                mongo.connect(url, function(err, db){
+                                    assert.equal(null,err);
+                                    const testDb = db.db('test');
+                                    testDb.collection('user-data').insertOne(dbObject, function(err, result) {
+                                        assert.equal(null,err);
+                                        console.log("Item Inserted");
 
+                                    });
+                                });
 
+                             cb();
+
+                             res.render('ipfsStore', {
+                               title: 'Storing in IPFS',
+                               data: policyData,
+                               hash: fileMultihash,
+                               css: []});
 
                            }),
                            (cb) => node.files.cat(fileMultihash, (err, data) => {
@@ -90,12 +125,6 @@ router.post('/ipfs/store/:type', function(req, res, next){
                              process.stdout.write(data)
                            })
                          ])
-
-
-
-
-
-
 
   }else{
       res.send('Area under construction');

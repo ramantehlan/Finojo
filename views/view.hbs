@@ -1,1 +1,7 @@
-{{type}}
+{{# each items }}
+            <article class="item">
+                <div>Title: {{ this.user_id }}</div>
+                <div>Content: {{ this.ipfsCode }}</div>
+                <div>ID: {{ this._id }}</div>
+            </article>
+{{/each}}
