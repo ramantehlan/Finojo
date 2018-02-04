@@ -1,4 +1,3 @@
-'use strict'
 
 var express = require('express');
 const async = require('async');
@@ -7,6 +6,7 @@ var mongo = require('mongodb').MongoClient;
 var assert = require('assert');
 
 var url = "mongodb://localhost:27017/test";
+var collectionName = "test1";
 
 const node = new IPFS();
 var router = express.Router();
@@ -45,19 +45,26 @@ router.get('/generate/:type', function(req, res, next){
 });
 
 /* GET View page. */
-router.get('/view', function(req, res, next){
+router.post('/view', function(req, res, next){
   var userId = req.body.userId;
+  let content = "";
   var resultArray = [];
+
   mongo.connect(url, function(err, db){
     assert.equal(null, err);
     const testDb = db.db('test');
-      var cursor = testDb.collection('user-data').find();
+      var cursor = testDb.collection(collectionName).find();
       cursor.forEach(function(doc, err){
         assert.equal(null,err);
-        resultArray.push(doc);
+
+        if(doc.userId == userId){
+          resultArray.push(doc);
+        }
+
       } , function(){
 
-        res.render('view', { title: 'View' , items: resultArray, css: []});
+        res.render('view', { title: 'View' , items: resultArray, userId:userId , css: ['view.css']});
+
       });
   });
 
@@ -96,14 +103,15 @@ router.post('/ipfs/store/:type', function(req, res, next){
 
                              // Adding Ipfs multihash code to mongodb
                             let dbObject = {
-                                  user_id:req.body.id0,
+                                  corporateId:req.body.id0,
+                                  userId:req.body.id1,
                                   ipfsCode:fileMultihash
                                 };
 
                                 mongo.connect(url, function(err, db){
                                     assert.equal(null,err);
                                     const testDb = db.db('test');
-                                    testDb.collection('user-data').insertOne(dbObject, function(err, result) {
+                                    testDb.collection(collectionName).insertOne(dbObject, function(err, result) {
                                         assert.equal(null,err);
                                         console.log("Item Inserted");
 

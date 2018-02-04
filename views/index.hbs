@@ -23,8 +23,10 @@
           <div class='bold' >USER</div>
       </div>
       <div class='box_body'>
-          <input type="id" class='input' name="userId" placeholder="User Id">
-          <a href="/view/"><input type="button" value="Fetch"></a>
+        <form method="post" action="/view">
+          <input type="text" class='input' name="userId" placeholder="User Id">
+          <input type="submit" value="Fetch">
+        </form>
       </div>
 
   </div>

@@ -1,7 +1,15 @@
+
+
+      <h1 class='center'>USER ID: <b>{{userId}}</b> </h1>
+
+
+      <div class="record_holder">
 {{# each items }}
-            <article class="item">
-                <div>Title: {{ this.user_id }}</div>
-                <div>Content: {{ this.ipfsCode }}</div>
-                <div>ID: {{ this._id }}</div>
-            </article>
+            <div class='single_record'>
+
+                <div><B>Finojo ID:</b> {{ this._id }}</div>
+                <div><b>IPFD Hash Code:</b> <a href="https://ipfs.io/ipfs/{{ this.ipfsCode }}">{{ this.ipfsCode }}</a></div>
+                <div><b>Corporate Id:</b> {{ this.corporateId }}</div>
+            </div>
 {{/each}}
+      </div>

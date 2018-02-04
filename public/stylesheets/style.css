@@ -4,12 +4,15 @@ html {
   padding-right:30px;
   font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
     background-color:#7161ef;
-    color:#000;
+    color:#fff;
+}
+
+body{padding:0px;
+     margin:0px;
 }
 
 h1{font-size:35px;
    margin-bottom: 0px;
-   color:#2f243a;
 }
 
 p{
