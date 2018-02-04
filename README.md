@@ -19,6 +19,8 @@ Feel free to add your own features or improve any current feature, any kind of h
 
 # License
 
+GNU General Public License v3.0
+
 # Screenshots
 
 <p >
