@@ -11,7 +11,7 @@ This system makes it practically impossible for a file to get lost, plus it's mo
 
 # Installation
 
-1. Clone this repository `git clone https://github.com/ramantehlan/Finojo.git`
+1. Clone this repository, Write in terminal `git clone https://github.com/ramantehlan/Finojo.git` and `cd Finojo`.
 2. Run `npm install`
 3. Run `npm start`
 
