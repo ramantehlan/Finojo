@@ -17,6 +17,10 @@ This system makes it practically impossible for a file to get lost, plus it's mo
 
 # Contribution
 
+**Author**
+
+- [Raman Tehlan](https://ramantehlan.github.io/)
+
 Feel free to add your own features or improve any current feature, any kind of help is appreciated.
 
 # License
